@@ -1,38 +1,37 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#151512">
-  <meta name="description" content="xo.dx — звук, форма, независимость. Первый сигнал. 2026.">
-  <title>xo.dx — Первый сигнал / 2026</title>
+  <meta name="description" content="xo.dx — sound, form, independence. First signal. 2026.">
+  <title>xo.dx — First signal / 2026</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%23151512'/%3E%3Ctext x='9' y='56' font-family='Arial' font-weight='900' font-style='italic' font-size='44' fill='%23e9e5d9'%3Exo%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14"/></symbol>
     <symbol id="icon-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8c2 2 2 6 0 8M20 5c4 4 4 10 0 14"/></symbol>
     <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
   </svg>
   <header class="header">
-    <a class="wordmark" href="#" aria-label="xo.dx — начало">xo<span class="wordmark-dot">.</span>dx</a>
-    <span class="header-note">НЕЗАВИСИМЫЙ ЗВУК. СВОЯ ЧАСТОТА.</span>
-    <nav class="header-actions" aria-label="Управление сайтом">
+    <a class="wordmark" href="#" aria-label="xo.dx — home">xo<span class="wordmark-dot">.</span>dx</a>
+    <span class="header-note">INDEPENDENT SOUND. YOUR OWN FREQUENCY.</span>
+    <nav class="header-actions" aria-label="Site controls">
       <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">
         <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span id="sound-label">ЗВУК ВЫКЛ.</span>
+        <span id="sound-label">SOUND OFF</span>
       </button>
-      <button class="menu-toggle" id="menu-open" type="button" aria-label="Открыть меню" aria-haspopup="dialog">МЕНЮ <svg><use href="#icon-plus"/></svg></button>
+      <button class="menu-toggle" id="menu-open" type="button" aria-label="Open menu" aria-haspopup="dialog">MENU <svg><use href="#icon-plus"/></svg></button>
     </nav>
   </header>
 
   <main class="hero">
     <div class="grain" aria-hidden="true"></div>
     <div class="stage-glow" aria-hidden="true"></div>
-    <div class="hero-meta mono"><span><i class="live-dot"></i> VOLUME 01 — ПЕРВЫЙ СИГНАЛ</span><span class="meta-right">SOUND × VISION <span class="meta-cross">+</span> EST. <span data-year>2026</span></span></div>
+    <div class="hero-meta mono"><span><i class="live-dot"></i> VOLUME 01 — FIRST SIGNAL</span><span class="meta-right">SOUND × VISION <span class="meta-cross">+</span> EST. <span data-year>2026</span></span></div>
 
-    <div class="visual" aria-label="Вращающийся металлический знак XO и год 2026">
+    <div class="visual" aria-label="Spinning chrome XO symbol and year 2026">
       <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
       <div class="registration-mark mark-left" aria-hidden="true">+</div><div class="registration-mark mark-right" aria-hidden="true">+</div>
       <div class="fallback-logo" id="fallback-logo" aria-hidden="true">xo</div>
@@ -44,62 +43,60 @@
 
     <section class="hero-copy" aria-labelledby="hero-heading">
       <div class="intro">
-        <p class="eyebrow mono">БЕЗ ЛИШНИХ СЛОВ. НА ПОЛНУЮ ГРОМКОСТЬ.</p>
-        <h1 id="hero-heading">Всё начинается<br>со звука<span>.</span></h1>
+        <p class="eyebrow mono">LESS TALK. MORE VOLUME.</p>
+        <h1 id="hero-heading">It all starts<br>with sound<span>.</span></h1>
       </div>
       <div class="hero-links">
-        <p>Свой ритм. Своя история.<br>Остальное — просто шум.</p>
+        <p>Your rhythm. Your story.<br> Everything else is noise.</p>
         <div class="cta-row">
-          <button class="button button-cream" id="listen" type="button"><span class="play-glyph" aria-hidden="true"></span><span id="listen-label">СЛУШАТЬ</span><svg><use href="#icon-arrow"/></svg></button>
-          <button class="button button-outline" id="about-open" type="button">О ПРОЕКТЕ<svg><use href="#icon-arrow"/></svg></button>
+          <button class="button button-cream" id="listen" type="button"><span class="play-glyph" aria-hidden="true"></span><span id="listen-label">LISTEN</span></button>
+          <button class="button button-outline" id="about-open" type="button">ABOUT</button>
         </div>
       </div>
     </section>
 
     <footer class="player">
-      <button class="record" id="record-play" type="button" aria-label="Включить демо-звук"><span>xo</span></button>
-      <div class="track-info"><span class="track-title" id="track-title">Первый сигнал</span><span class="track-detail mono" id="track-detail">XO.DX / ДЕМО-ЗВУК</span></div>
+      <button class="record" id="record-play" type="button" aria-label="Play music"><span>xo</span></button>
+      <div class="track-info"><span class="track-title" id="track-title">XO.DX — 01</span><span class="track-detail mono" id="track-detail">SITE SOUNDTRACK</span></div>
       <div class="player-center">
-        <button class="player-play" id="player-play" type="button" aria-label="Включить демо-звук"><span class="play-glyph" aria-hidden="true"></span></button>
+        <button class="player-play" id="player-play" type="button" aria-label="Play music"><span class="play-glyph" aria-hidden="true"></span></button>
         <span class="time mono" id="current-time">00:00</span>
-        <input class="seek" id="seek" type="range" min="0" max="24" value="0" step="0.05" aria-label="Позиция в треке">
-        <span class="time mono" id="duration">00:24</span>
+        <input class="seek" id="seek" type="range" min="0" max="0" value="0" step="0.05" aria-label="Track position" disabled>
+        <span class="time mono" id="duration">--:--</span>
       </div>
-      <div class="volume"><svg aria-hidden="true"><use href="#icon-sound"/></svg><input id="volume" type="range" min="0" max="1" step="0.01" value="0.5" aria-label="Громкость"></div>
-      <button class="demo-settings mono" id="settings-open" type="button">ПРИМЕРИТЬ СВОЁ<svg><use href="#icon-arrow"/></svg></button>
+      <div class="volume"><svg aria-hidden="true"><use href="#icon-sound"/></svg><input id="volume" type="range" min="0" max="1" step="0.01" value="0.5" aria-label="Volume"></div>
+      <button class="demo-settings mono" id="settings-open" type="button">VISUALS</button>
     </footer>
   </main>
-  <div class="colophon mono"><span>© <span data-year>2026</span> XO.DX</span><span>НЕ ЗАПОЛНЯТЬ ТИШИНУ. СОЗДАВАТЬ ЗВУК.</span><span>CONCEPT 001</span></div>
+  <div class="colophon mono"><span>© <span data-year>2026</span> XO.DX</span><span>DON’T FILL THE SILENCE. MAKE A SOUND.</span><span>CONCEPT 001</span></div>
 
   <dialog class="panel menu-panel" id="menu-dialog" aria-labelledby="menu-title">
-    <div class="panel-top"><span class="mono">XO.DX / НАВИГАЦИЯ</span><button class="close-button" data-close type="button" aria-label="Закрыть меню">×</button></div>
-    <h2 id="menu-title">На своей<br>частоте.</h2>
-    <div class="menu-items"><button type="button" id="menu-listen"><span class="mono">01</span> Слушать <svg><use href="#icon-arrow"/></svg></button><button type="button" id="menu-about"><span class="mono">02</span> О проекте <svg><use href="#icon-arrow"/></svg></button><button type="button" id="menu-settings"><span class="mono">03</span> Примерить своё <svg><use href="#icon-arrow"/></svg></button></div>
-    <p class="panel-foot mono">ПЕРВЫЙ СИГНАЛ. <span data-year>2026</span>.</p>
+    <div class="panel-top"><span class="mono">XO.DX / NAVIGATION</span><button class="close-button" data-close type="button" aria-label="Close menu">×</button></div>
+    <h2 id="menu-title">On your own<br>frequency.</h2>
+    <div class="menu-items"><button type="button" id="menu-listen"><span class="mono">01</span> Listen</button><button type="button" id="menu-about"><span class="mono">02</span> About</button><button type="button" id="menu-settings"><span class="mono">03</span> Visual settings</button></div>
+    <p class="panel-foot mono">FIRST SIGNAL. <span data-year>2026</span>.</p>
   </dialog>
 
   <dialog class="panel about-panel" id="about-dialog" aria-labelledby="about-title">
-    <div class="panel-top"><span class="mono">VOLUME 01 / О ПРОЕКТЕ</span><button class="close-button" data-close type="button" aria-label="Закрыть">×</button></div>
+    <div class="panel-top"><span class="mono">VOLUME 01 / ABOUT</span><button class="close-button" data-close type="button" aria-label="Close">×</button></div>
     <span class="about-emblem" aria-hidden="true">xo<span>®</span></span>
-    <h2 id="about-title">Первый<br>сигнал.</h2>
-    <p class="panel-copy">Звук, который говорит сам за себя.<br>И пространство, в котором нет ничего лишнего.</p>
-    <p class="panel-copy muted-copy">Это первый эскиз xo.dx. Здесь появятся твой логотип, твой визуал и твоя музыка. Пока — форма будущего звучания.</p>
-    <button class="button button-dark" id="about-listen" type="button">ВКЛЮЧИТЬ ЗВУК <svg><use href="#icon-arrow"/></svg></button>
+    <h2 id="about-title">First<br>signal.</h2>
+    <p class="panel-copy">Sound that speaks for itself.<br>A space with nothing to get in the way.</p>
+    <p class="panel-copy muted-copy">The first sketch of xo.dx. The music is here. The logo and visuals are taking shape. A glimpse of what’s to come.</p>
+    <button class="button button-dark" id="about-listen" type="button">TURN IT UP</button>
     <p class="panel-foot mono">INDEPENDENT SOUND. INDEPENDENT VISION.</p>
   </dialog>
 
   <dialog class="panel settings-panel" id="settings-dialog" aria-labelledby="settings-title">
-    <div class="panel-top"><span class="mono">CONCEPT 001 / ПРИМЕРКА</span><button class="close-button" data-close type="button" aria-label="Закрыть настройки">×</button></div>
-    <h2 id="settings-title">Твой звук.<br>Твой визуал.</h2>
-    <p class="panel-copy">Примерь материалы на этот экран. Файлы остаются в твоём браузере и не загружаются на сервер.</p>
-    <label class="field-label mono" for="year-input">ГОД НА ОБЛОЖКЕ</label><input class="year-input" id="year-input" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" value="2026" autocomplete="off">
-    <label class="upload" for="audio-upload"><span><strong>Твой трек</strong><small id="audio-file-label">MP3, WAV, OGG, M4A</small></span><svg><use href="#icon-plus"/></svg></label><input class="file-input" id="audio-upload" type="file" accept="audio/*">
-    <label class="upload" for="video-upload"><span><strong>Видео с логотипом</strong><small id="video-file-label">MP4, WebM · зацикленное, без звука</small></span><svg><use href="#icon-plus"/></svg></label><input class="file-input" id="video-upload" type="file" accept="video/mp4,video/webm,video/quicktime">
-    <button class="reset-demo mono" id="reset-demo" type="button">Вернуть демо-материалы ↺</button>
-    <p class="panel-foot mono">ПРИМЕРКА ДЕЙСТВУЕТ ДО ОБНОВЛЕНИЯ СТРАНИЦЫ.</p>
+    <div class="panel-top"><span class="mono">CONCEPT 001 / PREVIEW</span><button class="close-button" data-close type="button" aria-label="Close settings">×</button></div>
+    <h2 id="settings-title">Cover<br>year.</h2>
+    <p class="panel-copy">Adjust the year displayed on the cover.</p>
+    <label class="field-label mono" for="year-input">YEAR ON THE COVER</label><input class="year-input" id="year-input" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" value="2026" autocomplete="off">
+    <button class="reset-demo mono" id="reset-demo" type="button">Reset year ↺</button>
+    <p class="panel-foot mono">PREVIEW RESETS WHEN YOU RELOAD THE PAGE.</p>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <audio id="user-audio" preload="metadata"></audio>
+  <audio id="site-audio" src="assets/site-track.mp3" preload="metadata" loop></audio>
   <script src="sculpture.js"></script>
   <script src="app.js"></script>
 </body>
