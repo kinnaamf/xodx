@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "build:emblem": "esbuild src/emblem.js --bundle --minify --format=iife --target=es2020 --outfile=dist/emblem.js",
-    "trace:logo": "python tools/trace-logo.py source/dx-logo-source.png --output-directory dist/assets"
+    "trace:logo": "python tools/trace-logo.py source/dx-logo-source.png --output-directory dist/assets",
+    "build:mesh": "esbuild src/blade-geometry.js --bundle --platform=node --format=cjs --outfile=tools/blade-build.cjs && node tools/bake-logo.cjs ./tools/blade-build.cjs dist/assets/logo-shape.js dist/assets/logo-mesh.bin.gz"
   },
   "devDependencies": {
     "esbuild": "0.25.11",

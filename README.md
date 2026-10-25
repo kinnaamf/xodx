@@ -50,3 +50,6 @@ xodx.noblesse.dev {
 ```
 
 Three.js распространяется под MIT; лицензия сохранена в `dist/assets/THREE-LICENSE.txt`.
+
+
+Performance: the browser loads a precomputed, indexed gzip mesh instead of rebuilding the relief. After editing src/blade-geometry.js run npm run build:mesh, then npm run build:emblem. The baked mesh preserves the contour and smooth normals with quantized positions (1/8192 world unit).

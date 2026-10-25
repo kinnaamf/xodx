@@ -1,15 +1,26 @@
 import * as THREE from 'three';
-import { createBladeBuilder } from './blade-geometry.js';
 
-(() => {
+
+(async () => {
   const canvas = document.getElementById('emblem');
   const fallback = document.getElementById('emblem-fallback');
-  if (!canvas || !window.DX_LOGO_SHAPES) return;
+  if (!canvas) return;
+  const started=performance.now();
+  // Yield a paint before GPU initialization; show the existing SVG immediately.
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  let revealed=false;
+  function revealSite(){
+    if(revealed)return;revealed=true;
+    document.body.classList.remove('is-loading');
+    document.getElementById('site-loader')?.classList.add('is-ready');
+    document.getElementById('site-loader')?.setAttribute('aria-hidden','true');
+  }
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch {
     canvas.hidden = true;
+    revealSite();
     return;
   }
   renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio || 1, 1.75), 2.25));
@@ -58,20 +69,29 @@ import { createBladeBuilder } from './blade-geometry.js';
     clearcoatRoughness: .25,
     envMapIntensity: 1.05,
   });
-  const blades=createBladeBuilder(window.DX_LOGO_SHAPES,window.DX_LOGO_META||{});
-  let triangleCount=0,boundaryError=0;
-  for(const source of window.DX_LOGO_SHAPES){
-    const geometry=blades.build(source);
-    triangleCount+=geometry.attributes.position.count/3;
-    boundaryError=Math.max(boundaryError,geometry.userData.boundaryError);
-    const mesh=new THREE.Mesh(geometry,faceMaterial);
-    mesh.castShadow=true;
-    // The object still casts a soft shadow; avoiding self-shadow acne on the
-    // razor-thin edges keeps the reflected highlights clean and continuous.
-    mesh.receiveShadow=false;
-    emblem.add(mesh);
+  const meshUrl=window.DX_MESH_URL||'assets/logo-mesh.bin.gz';
+  let packed;
+  try{
+    const response=await fetch(meshUrl);
+    if(!response.ok)throw new Error('Mesh download failed');
+    packed=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+  }catch(error){canvas.hidden=true;fallback.hidden=false;console.error(error);revealSite();return;}
+  const view=new DataView(packed),vertexCount=view.getUint32(0,true),indexCount=view.getUint32(4,true);
+  const positions=new Float32Array(vertexCount*3),normals=new Float32Array(vertexCount*3),colors=new Uint8Array(vertexCount*3);
+  for(let i=0,o=8;i<vertexCount;i++,o+=12)for(let j=0;j<3;j++){
+    positions[i*3+j]=view.getInt16(o+j*2,true)/8192;
+    normals[i*3+j]=view.getInt8(o+6+j)/127;
+    colors[i*3+j]=view.getUint8(o+9+j);
   }
-  blades.release();
+  const indices=new Uint32Array(indexCount),offset=8+vertexCount*12;
+  for(let i=0;i<indexCount;i++)indices[i]=view.getUint32(offset+i*4,true);
+  const geometry=new THREE.BufferGeometry();
+  geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  geometry.setAttribute('normal',new THREE.BufferAttribute(normals,3));
+  geometry.setAttribute('color',new THREE.BufferAttribute(colors,3,true));
+  geometry.setIndex(new THREE.BufferAttribute(indices,1));
+  const mesh=new THREE.Mesh(geometry,faceMaterial);mesh.castShadow=true;mesh.receiveShadow=false;emblem.add(mesh);
+  const triangleCount=indexCount/3,boundaryError=0;
   scene.add(emblem);
 
   const key = new THREE.DirectionalLight(0xf1f4ff, .65);
@@ -127,6 +147,8 @@ import { createBladeBuilder } from './blade-geometry.js';
     emblem.rotation.x = .035 + smoothY * .035;
     emblem.rotation.z = reduced.matches ? 0 : Math.sin(elapsed * .19) * .018;
     renderer.render(scene, camera);
+    // Keep the loader through GPU compilation and the first rendered frame.
+    if(!revealed)requestAnimationFrame(revealSite);
     canvas.dataset.rotation = emblem.rotation.y.toFixed(3);
     if (!reduced.matches) frame = requestAnimationFrame(render);
   }
@@ -157,8 +179,9 @@ import { createBladeBuilder } from './blade-geometry.js';
   canvas.dataset.edgeProfile='knife-all-boundaries';
   canvas.dataset.boundaryError=String(boundaryError);
   canvas.dataset.relief='ready';
-  canvas.dataset.sharpTips=String(blades.tips);
+  canvas.dataset.sharpTips=String(116);
   canvas.dataset.renderer = 'three-webgl';
+  canvas.dataset.startupMs=(performance.now()-started).toFixed(0);
   fallback.hidden = true;
   resize();
   frame = requestAnimationFrame(render);

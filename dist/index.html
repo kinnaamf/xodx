@@ -7,9 +7,15 @@
   <meta name="description" content="DXWORLD. Sound. Vision. 2027.">
   <title>DX.WORLD</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=dx-23">
+  <link rel="stylesheet" href="styles.css?v=dx-31">
 </head>
-<body>
+<body class="is-loading">
+  <div class="site-loader" id="site-loader" role="status" aria-label="Loading DX.WORLD">
+    <div class="loader-mark" aria-hidden="true">DX</div>
+    <div class="loader-name">DX.WORLD</div>
+    <div class="loader-track" aria-hidden="true"><span></span></div>
+    <div class="loader-caption">INITIALIZING TRANSMISSION</div>
+  </div>
   <audio id="site-audio" src="assets/site-track.mp3" preload="auto" autoplay loop></audio>
   <main class="splash" aria-labelledby="page-title">
     <div class="atmosphere" aria-hidden="true"></div>
@@ -61,10 +67,10 @@
   </dialog>
   <p class="toast" id="toast" role="status" aria-live="polite"></p>
   <script src="app.js?v=dx-11"></script>
-  <script src="assets/logo-shape.js?v=dx-11"></script>
-  <script src="emblem.js?v=dx-11"></script>
+  <script src="emblem.js?v=dx-31"></script>
 </body>
 </html>
+
 
 
 

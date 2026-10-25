@@ -115,7 +115,7 @@ export function createBladeBuilder(shapes, metadata) {
     function triangle(a,b,c,depth=0){
       const lengths=[length2(a,b),length2(b,c),length2(c,a)];
       const edge=lengths.indexOf(Math.max(...lengths));
-      const limit=.018;
+      const limit=.032;
       if(lengths[edge]>limit*limit&&depth<16){
         if(edge===0){const m=mid(a,b);triangle(a,m,c,depth+1);triangle(m,b,c,depth+1);}
         else if(edge===1){const m=mid(b,c);triangle(a,b,m,depth+1);triangle(a,m,c,depth+1);}
@@ -134,3 +134,4 @@ export function createBladeBuilder(shapes, metadata) {
   }
   return {build,sample,tips:tips.length,release(){vertexCache.clear();edgeCells.clear();tipCells.clear();}};
 }
+
