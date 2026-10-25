@@ -1,0 +1,13 @@
+{
+  "name": "dxworld-landing",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build:emblem": "esbuild src/emblem.js --bundle --minify --format=iife --target=es2020 --outfile=dist/emblem.js",
+    "trace:logo": "python tools/trace-logo.py source/dx-logo-source.png --output-directory dist/assets"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.11",
+    "three": "0.180.0"
+  }
+}

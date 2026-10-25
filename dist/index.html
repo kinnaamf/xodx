@@ -2,93 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#151512">
-  <meta name="description" content="xo.dx — sound, form, independence. First signal. 2026.">
-  <title>xo.dx — First signal / 2026</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%23151512'/%3E%3Ctext x='9' y='56' font-family='Arial' font-weight='900' font-style='italic' font-size='44' fill='%23e9e5d9'%3Exo%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#030303">
+  <meta name="description" content="DXWORLD. Sound. Vision. 2027.">
+  <title>DXWORLD — 2027</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23030303'/%3E%3Ctext x='5' y='39' font-family='Arial' font-weight='900' font-size='29' fill='%23bbbbbb'%3EDX%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=dx-11">
 </head>
 <body>
-  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <symbol id="icon-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8c2 2 2 6 0 8M20 5c4 4 4 10 0 14"/></symbol>
-    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
-  </svg>
-  <header class="header">
-    <a class="wordmark" href="#" aria-label="xo.dx — home">xo<span class="wordmark-dot">.</span>dx</a>
-    <span class="header-note">INDEPENDENT SOUND. YOUR OWN FREQUENCY.</span>
-    <nav class="header-actions" aria-label="Site controls">
-      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">
-        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span id="sound-label">SOUND OFF</span>
-      </button>
-    </nav>
-  </header>
+  <audio id="site-audio" src="assets/site-track.mp3" preload="auto" autoplay loop></audio>
+  <main class="splash" aria-labelledby="page-title">
+    <div class="atmosphere" aria-hidden="true"></div>
+    <div class="film-grain" aria-hidden="true"></div>
+    <div class="hairlines" aria-hidden="true"></div>
+    <div class="border-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <header class="masthead"><a class="wordmark" href="#" aria-label="dx.world home">dx.world</a></header>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="menu-dialog" aria-expanded="false"><span></span><span></span><span></span></button>
+    <h1 class="sr-only" id="page-title">DXWORLD — 2027</h1>
 
-  <main class="hero">
-    <div class="grain" aria-hidden="true"></div>
-    <div class="stage-glow" aria-hidden="true"></div>
-    <div class="hero-meta mono"><span><i class="live-dot"></i> VOLUME 01 — FIRST SIGNAL</span><span class="meta-right">SOUND × VISION <span class="meta-cross">+</span> EST. <span data-year>2026</span></span></div>
-
-    <div class="visual" aria-label="Spinning chrome XO symbol and year 2026">
-      <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
-      <div class="registration-mark mark-left" aria-hidden="true">+</div><div class="registration-mark mark-right" aria-hidden="true">+</div>
-      <div class="fallback-logo" id="fallback-logo" aria-hidden="true">xo</div>
-      <canvas id="sculpture" aria-hidden="true"></canvas>
-      <video id="hero-video" muted loop playsinline hidden aria-hidden="true"></video>
-      <div class="year" id="year-display" aria-hidden="true">2026</div>
-      <div class="object-caption mono" aria-hidden="true"><span>FIG. 01 / XO</span><span>IN CONSTANT MOTION</span></div>
+    <div class="artwork" aria-label="The DX emblem, sculpted in chrome and rotating in three dimensions">
+      <img class="emblem-fallback" id="emblem-fallback" src="assets/dx-logo.svg" alt="" aria-hidden="true">
+      <canvas id="emblem" aria-hidden="true"></canvas>
+      <img class="year year-image" src="assets/year-2027.png" alt="2027">
     </div>
 
-    <section class="hero-copy" aria-labelledby="hero-heading">
-      <div class="intro">
-        <p class="eyebrow mono">LESS TALK. MORE VOLUME.</p>
-        <h1 id="hero-heading">It all starts<br>with sound<span>.</span></h1>
-      </div>
-      <div class="hero-links">
-        <p>Your rhythm. Your story.<br> Everything else is noise.</p>
-        <div class="cta-row">
-          <button class="button button-cream button-listen" id="listen" type="button"><span class="play-glyph" aria-hidden="true"></span><span id="listen-label">LISTEN</span></button>
-          <button class="button button-outline" id="about-open" type="button">ABOUT</button>
-        </div>
-      </div>
-    </section>
-
-    <footer class="player">
-      <button class="record" id="record-play" type="button" aria-label="Play music"><span>xo</span></button>
-      <div class="track-info"><span class="track-title" id="track-title">XO.DX — 01</span><span class="track-detail mono" id="track-detail">SITE SOUNDTRACK</span></div>
-      <div class="player-center">
-        <button class="player-play" id="player-play" type="button" aria-label="Play music"><span class="play-glyph" aria-hidden="true"></span></button>
-        <span class="time mono" id="current-time">00:00</span>
-        <input class="seek" id="seek" type="range" min="0" max="0" value="0" step="0.05" aria-label="Track position" disabled>
-        <span class="time mono" id="duration">--:--</span>
-      </div>
-      <div class="volume"><svg aria-hidden="true"><use href="#icon-sound"/></svg><input id="volume" type="range" min="0" max="1" step="0.01" value="0.5" aria-label="Volume"></div>
+    <footer class="corner-controls">
+      <button class="outline-button sound-toggle" id="sound-toggle" type="button" aria-label="Enable music" aria-pressed="false">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span id="sound-label">SOUND: OFF</span>
+      </button>
+      <button class="outline-button enter-button" id="enter" type="button" aria-haspopup="dialog"><span>ENTER DX</span><svg viewBox="0 0 24 12" aria-hidden="true"><path d="M1 6H22M17 1 22 6 17 11"/></svg></button>
     </footer>
   </main>
-  <div class="colophon mono"><span>© <span data-year>2026</span> XO.DX</span><span>DON’T FILL THE SILENCE. MAKE A SOUND.</span><span>CONCEPT 001</span></div>
 
-  <dialog class="panel about-panel" id="about-dialog" aria-labelledby="about-title">
-    <div class="panel-top"><span class="mono">VOLUME 01 / ABOUT</span><button class="close-button" data-close type="button" aria-label="Close">×</button></div>
-    <span class="about-emblem" aria-hidden="true">xo<span>®</span></span>
-    <h2 id="about-title">First<br>signal.</h2>
-    <p class="panel-copy">Sound that speaks for itself.<br>A space with nothing to get in the way.</p>
-    <p class="panel-copy muted-copy">The first sketch of xo.dx. The music is here. The logo and visuals are taking shape. A glimpse of what’s to come.</p>
-    <button class="button button-dark" id="about-listen" type="button">TURN IT UP</button>
-    <p class="panel-foot mono">INDEPENDENT SOUND. INDEPENDENT VISION.</p>
+  <dialog id="enter-dialog" class="enter-dialog" aria-labelledby="enter-heading">
+    <button class="close-dialog" id="close-dialog" type="button" aria-label="Close">×</button>
+    <span class="dialog-kicker">DXWORLD / 2027</span>
+    <h2 id="enter-heading">First<br>transmission.</h2>
+    <p>Sound. Vision. No limits.</p>
+    <p class="dialog-note">A new world is taking shape.</p>
+    <button class="outline-button dialog-sound" id="dialog-sound" type="button">TURN IT UP <span aria-hidden="true">→</span></button>
   </dialog>
-
-  <dialog class="panel settings-panel" id="settings-dialog" aria-labelledby="settings-title">
-    <div class="panel-top"><span class="mono">CONCEPT 001 / PREVIEW</span><button class="close-button" data-close type="button" aria-label="Close settings">×</button></div>
-    <h2 id="settings-title">Cover<br>year.</h2>
-    <p class="panel-copy">Adjust the year displayed on the cover.</p>
-    <label class="field-label mono" for="year-input">YEAR ON THE COVER</label><input class="year-input" id="year-input" type="text" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" value="2026" autocomplete="off">
-    <button class="reset-demo mono" id="reset-demo" type="button">Reset year ↺</button>
-    <p class="panel-foot mono">PREVIEW RESETS WHEN YOU RELOAD THE PAGE.</p>
+  <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-heading">
+    <button class="close-dialog" id="menu-close" type="button" aria-label="Close menu">×</button>
+    <span class="dialog-kicker">DXWORLD / 2027</span>
+    <h2 id="menu-heading">DXWORLD</h2>
+    <nav aria-label="Main navigation">
+      <button id="menu-home" type="button"><span>01</span>HOME</button>
+      <button id="menu-enter" type="button"><span>02</span>ENTER DX</button>
+      <button id="menu-sound" type="button"><span>03</span><span id="menu-sound-label">SOUND: OFF</span></button>
+    </nav>
+    <p class="menu-foot">SOUND. VISION. NO LIMITS.</p>
   </dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <audio id="site-audio" src="assets/site-track.mp3" preload="auto" autoplay loop></audio>
-  <script src="sculpture.js"></script>
-  <script src="app.js?v=2"></script>
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+  <script src="app.js?v=dx-11"></script>
+  <script src="assets/logo-shape.js?v=dx-11"></script>
+  <script src="emblem.js?v=dx-11"></script>
 </body>
 </html>
