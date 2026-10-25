@@ -540,7 +540,7 @@ svg {
 }
 
 .track-title {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -548,7 +548,7 @@ svg {
 }
 
 .track-detail {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 1px;
   color: #858a78
 }
@@ -584,7 +584,7 @@ svg {
 }
 
 .time {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0;
   color: #aeb19f;
   font-variant-numeric: tabular-nums
@@ -659,7 +659,7 @@ input[type=range]::-moz-range-thumb {
   background: none;
   color: #a3a891;
   border: 0;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .6px;
   display: flex;
   align-items: center;
@@ -683,12 +683,12 @@ input[type=range]::-moz-range-thumb {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: .8px
 }
 
 .colophon > span:nth-child(2) {
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 1.3px
 }
 
@@ -1311,11 +1311,11 @@ input[type=range]::-moz-range-thumb {
   }
 
   .track-title {
-    font-size: 10px
+    font-size: 12px
   }
 
   .track-detail {
-    font-size: 6px;
+    font-size: 8px;
     letter-spacing: .4px
   }
 
@@ -1336,7 +1336,7 @@ input[type=range]::-moz-range-thumb {
 
   .demo-settings {
     padding-left: 0;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 0;
     gap: 5px;
     margin-left: 3px;
@@ -1353,7 +1353,7 @@ input[type=range]::-moz-range-thumb {
   .colophon {
     min-height: 36px;
     padding: 0 6%;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: .3px
   }
 
@@ -1486,4 +1486,11 @@ body {
     animation: none !important;
     transition: none !important
   }
+}
+
+.button-listen {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
