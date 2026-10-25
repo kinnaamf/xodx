@@ -36,7 +36,7 @@ export function createBladeBuilder(shapes, metadata) {
     }
     // C2 blending removes shading breaks where a bevel joins the body.
     const d=Math.min(1,distance/.065);
-    const envelope=d*d*(3-2*d);
+    const envelope=Math.pow(d*d*(3-2*d),1.3);
     const taper=1; // Zero-thickness boundaries already form the sharp tips.
     const waves=.014*Math.sin(3.1*x+1.3*y)+.012*Math.cos(3.2*y-1.8*x);
     const bulges=.22*gaussian(x,y,-1.25,.6,.43)+.19*gaussian(x,y,.95,.8,.47)+.2*gaussian(x,y,-.55,-1.15,.4)+.16*gaussian(x,y,1.3,-.65,.38)
@@ -79,9 +79,13 @@ export function createBladeBuilder(shapes, metadata) {
     const frontNormal=new THREE.Vector3(-(px.front-mx.front)/(2*e),-(py.front-my.front)/(2*e),1).normalize();
     const backNormal=new THREE.Vector3((px.back-mx.back)/(2*e),(py.back-my.back)/(2*e),-1).normalize();
     const edgeTint=Math.exp(-((center.distance/.022)**2))*.88;
-    const swelling=Math.max(0,Math.min(1,(center.front-center.back-.16)/.4));
-    const faceTint=.08+.28*swelling+.08*(.5+.5*Math.sin(x*2.5+y*1.7));
-    const color=bodyColor.clone().lerp(new THREE.Color(0x666b72),faceTint).lerp(edgeColor,edgeTint);
+    const swelling=Math.max(0,Math.min(1,(center.front-center.back-.15)/.38));
+    const facing=Math.max(0,frontNormal.z);
+    const reliefLight=Math.min(1,.18*facing+swelling*(.35+.65*facing));
+    // Graphite follows raised, front-facing geometry; hollows remain black.
+    const color=new THREE.Color(0x0b0d10)
+      .lerp(new THREE.Color(0x87909b),reliefLight)
+      .lerp(edgeColor,edgeTint*.72);
     const result={x,y,...center,frontNormal,backNormal,color};
     vertexCache.set(key,result);
     return result;

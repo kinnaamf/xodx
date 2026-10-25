@@ -39,9 +39,9 @@ import { createBladeBuilder } from './blade-geometry.js';
   lightCard(4, .16, -1, -4, 3, .9);
   lightCard(.48, 6, 3, 3, -4, 8);
   lightCard(.36, 6, -3, 1, -3, 7);
-  lightCard(3.5, 5, -5, 2, 3, .65);
-  lightCard(3, 5, 4, -1, 4, .32);
-  lightCard(8, 2.5, 0, 5, 2, .5);
+  lightCard(3.5, 5, -5, 2, 3, 2.5);
+  lightCard(3, 5, 4, -1, 4, 1.4);
+  lightCard(8, 2.5, 0, 5, 2, 1.6);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const environment = pmrem.fromScene(environmentScene, .09);
   scene.environment = environment.texture;
@@ -53,10 +53,10 @@ import { createBladeBuilder } from './blade-geometry.js';
     color: 0xffffff,
     vertexColors: true,
     metalness: 1,
-    roughness: .28,
+    roughness: .33,
     clearcoat: .32,
     clearcoatRoughness: .25,
-    envMapIntensity: .8,
+    envMapIntensity: 1.05,
   });
   const blades=createBladeBuilder(window.DX_LOGO_SHAPES,window.DX_LOGO_META||{});
   let triangleCount=0,boundaryError=0;

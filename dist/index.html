@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#030303">
   <meta name="description" content="DXWORLD. Sound. Vision. 2027.">
-  <title>DXWORLD — 2027</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23030303'/%3E%3Ctext x='5' y='39' font-family='Arial' font-weight='900' font-size='29' fill='%23bbbbbb'%3EDX%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=dx-11">
+  <title>DX.WORLD</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css?v=dx-23">
 </head>
 <body>
   <audio id="site-audio" src="assets/site-track.mp3" preload="auto" autoplay loop></audio>
@@ -23,7 +23,12 @@
     <div class="artwork" aria-label="The DX emblem, sculpted in chrome and rotating in three dimensions">
       <img class="emblem-fallback" id="emblem-fallback" src="assets/dx-logo.svg" alt="" aria-hidden="true">
       <canvas id="emblem" aria-hidden="true"></canvas>
-      <img class="year year-image" src="assets/year-2027.png" alt="2027">
+      <svg class="year year-outline" viewBox="0 0 370 440" preserveAspectRatio="none" role="img" aria-label="2027"><defs><g id="year-shapes" fill-rule="evenodd">
+            <path d="M3 112V31C3 10 13 0 33 0S64 11 64 32V113C64 151 60 181 53 215L23 410H64V440H0V410L32 210C39 177 42 148 42 114V33C42 24 39 20 33 20S25 24 25 33V112Z"/>
+            <path d="M137 0C115 0 105 12 105 34V405C105 429 116 440 137 440S170 428 170 405V34C170 11 158 0 137 0ZM137 20C144 20 147 24 147 34V405C147 415 144 420 137 420S128 415 128 405V34C128 24 131 20 137 20Z"/>
+            <path d="M210 112V31C210 10 220 0 240 0S271 11 271 32V113C271 151 267 181 260 215L230 410H271V440H207V410L239 210C246 177 249 148 249 114V33C249 24 246 20 240 20S232 24 232 33V112Z"/>
+            <path d="M304 0H370V32L333 440H309L346 31H304Z"/>
+          </g></defs><use href="#year-shapes" fill="none" stroke="currentColor" stroke-width=".65" vector-effect="non-scaling-stroke"/></svg>
     </div>
 
     <footer class="corner-controls">
@@ -60,3 +65,6 @@
   <script src="emblem.js?v=dx-11"></script>
 </body>
 </html>
+
+
+
