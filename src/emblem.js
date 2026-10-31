@@ -119,6 +119,17 @@ import { decodeMeshResponse } from './mesh-data.js';
   shadow.receiveShadow = true;
   scene.add(shadow);
 
+  // Keep a real local light on a plane just in front of the rotating metal.
+  const cursorLight = new THREE.PointLight(0xdce8f2, 0, 9, 2);
+  cursorLight.position.set(0, 0, 1.4);
+  scene.add(cursorLight);
+  const cursorRay = new THREE.Raycaster();
+  const cursorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -1.4);
+  const cursorNdc = new THREE.Vector2();
+  const cursorPosition = new THREE.Vector3(0, 0, 1.4);
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  let cursorActive = false;
+
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let width = 0, height = 0, pointerX = 0, pointerY = 0, smoothX = 0, smoothY = 0;
   let previousTime = 0, elapsed = 0, frame = 0;
@@ -150,6 +161,9 @@ import { decodeMeshResponse } from './mesh-data.js';
     emblem.rotation.y = -.22 + (reduced.matches ? 0 : elapsed * .16) + smoothX * .035;
     emblem.rotation.x = .035 + smoothY * .035;
     emblem.rotation.z = reduced.matches ? 0 : Math.sin(elapsed * .19) * .018;
+    const lightIntensity = cursorActive && !document.querySelector('dialog[open]') ? 16 : 0;
+    cursorLight.intensity = reduced.matches ? lightIntensity : THREE.MathUtils.damp(cursorLight.intensity, lightIntensity, 12, delta);
+    cursorLight.position.copy(cursorPosition);
     try {
       renderer.render(scene, camera);
     } catch (error) {
@@ -166,8 +180,28 @@ import { decodeMeshResponse } from './mesh-data.js';
   window.addEventListener('pointermove', event => {
     pointerX = event.clientX / innerWidth * 2 - 1;
     pointerY = event.clientY / innerHeight * 2 - 1;
+    const bounds = canvas.getBoundingClientRect();
+    cursorActive = finePointer.matches && event.pointerType === 'mouse' &&
+      event.clientX >= bounds.left && event.clientX <= bounds.right &&
+      event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    if (cursorActive && bounds.width && bounds.height) {
+      cursorNdc.set((event.clientX - bounds.left) / bounds.width * 2 - 1,
+        1 - (event.clientY - bounds.top) / bounds.height * 2);
+      camera.updateMatrixWorld();
+      cursorRay.setFromCamera(cursorNdc, camera);
+      cursorRay.ray.intersectPlane(cursorPlane, cursorPosition);
+    }
+    if (reduced.matches) { cancelAnimationFrame(frame); frame = requestAnimationFrame(render); }
   }, { passive: true });
+  function hideCursorLight() {
+    cursorActive = false;
+    if (reduced.matches) { cancelAnimationFrame(frame); frame = requestAnimationFrame(render); }
+  }
+  document.documentElement.addEventListener('pointerleave', hideCursorLight);
+  window.addEventListener('blur', hideCursorLight);
+  finePointer.addEventListener('change', hideCursorLight);
   document.addEventListener('visibilitychange', () => {
+    cursorActive = false;
     cancelAnimationFrame(frame);
     previousTime = 0;
     if (!document.hidden) frame = requestAnimationFrame(render);

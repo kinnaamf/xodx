@@ -106,3 +106,33 @@
   render();
   retry();
 })();
+
+// A soft pool of light follows mouse input without intercepting controls.
+(() => {
+  const stage = document.querySelector('.artwork');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  if (!stage) return;
+  const glow = document.createElement('div');
+  glow.className = 'cursor-glow';
+  glow.setAttribute('aria-hidden', 'true');
+  stage.append(glow);
+  let frame = 0, x = 0, y = 0;
+  const hide = () => glow.classList.remove('is-active');
+  window.addEventListener('pointermove', event => {
+    if (!finePointer.matches || event.pointerType !== 'mouse') { hide(); return; }
+    x = event.clientX; y = event.clientY;
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const bounds = stage.getBoundingClientRect();
+      const inside = x >= bounds.left && x <= bounds.right && y >= bounds.top && y <= bounds.bottom;
+      glow.classList.toggle('is-active', inside && !document.querySelector('dialog[open]'));
+      glow.style.setProperty('--glow-x', `${x - bounds.left}px`);
+      glow.style.setProperty('--glow-y', `${y - bounds.top}px`);
+    });
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', hide);
+  window.addEventListener('blur', hide);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hide(); });
+  finePointer.addEventListener('change', hide);
+})();
