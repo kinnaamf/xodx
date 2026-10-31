@@ -72,7 +72,7 @@ html{filter:contrast(1.02) saturate(.9)}
 .artwork::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse 59% 110% at 50% 0%,transparent 12%,#0001 45%,#0007 80%,#000c 100%)}
 .stage-year{stroke:#6b7067;opacity:.48;mask-image:radial-gradient(ellipse 85% 110% at 50% 0%,#000 0%,#000b 45%,#0006 75%,#0003 100%)}
 
-.cursor-glow{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(circle 260px at var(--glow-x,50%) var(--glow-y,50%),#c4d4df1c 0%,#aebfcc0b 35%,transparent 72%);transition:opacity .35s ease}
+.cursor-glow{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(ellipse 210px 175px at var(--glow-x,50%) var(--glow-y,50%),rgba(196,212,223,.045) 0%,rgba(196,212,223,.038) 12%,rgba(185,203,217,.025) 28%,rgba(174,191,204,.012) 48%,rgba(174,191,204,.003) 72%,rgba(174,191,204,0) 100%);filter:blur(16px);transition:opacity .35s ease}
 .cursor-glow.is-active{opacity:1}
 @media(hover:none),(pointer:coarse){.cursor-glow{display:none}}
 @media(prefers-reduced-motion:reduce){.cursor-glow{transition:none}}

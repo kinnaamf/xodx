@@ -120,9 +120,12 @@ import { decodeMeshResponse } from './mesh-data.js';
   scene.add(shadow);
 
   // Keep a real local light on a plane just in front of the rotating metal.
-  const cursorLight = new THREE.PointLight(0xdce8f2, 0, 9, 2);
+  const cursorLight = new THREE.PointLight(0xdce8f2, 0, 4.5, 2);
   cursorLight.position.set(0, 0, 1.4);
   scene.add(cursorLight);
+  // A low, local grazing light catches blade edges the front light misses.
+  const cursorRim = new THREE.PointLight(0xe3edf5, 0, 1.8, 2);
+  scene.add(cursorRim);
   const cursorRay = new THREE.Raycaster();
   const cursorPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -1.4);
   const cursorNdc = new THREE.Vector2();
@@ -161,9 +164,13 @@ import { decodeMeshResponse } from './mesh-data.js';
     emblem.rotation.y = -.22 + (reduced.matches ? 0 : elapsed * .16) + smoothX * .035;
     emblem.rotation.x = .035 + smoothY * .035;
     emblem.rotation.z = reduced.matches ? 0 : Math.sin(elapsed * .19) * .018;
-    const lightIntensity = cursorActive && !document.querySelector('dialog[open]') ? 16 : 0;
+    const lightIntensity = cursorActive && !document.querySelector('dialog[open]') ? 5 : 0;
     cursorLight.intensity = reduced.matches ? lightIntensity : THREE.MathUtils.damp(cursorLight.intensity, lightIntensity, 12, delta);
     cursorLight.position.copy(cursorPosition);
+    cursorRim.intensity = cursorLight.intensity * .09;
+    cursorRim.position.copy(cursorPosition).sub(camera.position)
+      .multiplyScalar((camera.position.z - .35) / (camera.position.z - 1.4))
+      .add(camera.position);
     try {
       renderer.render(scene, camera);
     } catch (error) {
