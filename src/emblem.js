@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { decodeMeshResponse } from './mesh-data.js';
 
 
 (async () => {
@@ -15,12 +16,18 @@ import * as THREE from 'three';
     document.getElementById('site-loader')?.classList.add('is-ready');
     document.getElementById('site-loader')?.setAttribute('aria-hidden','true');
   }
+  function showFallback(error) {
+    canvas.hidden = true;
+    if (fallback) fallback.hidden = false;
+    if (error) console.error('DX emblem could not start:', error);
+    revealSite();
+  }
+  try {
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  } catch {
-    canvas.hidden = true;
-    revealSite();
+  } catch (error) {
+    showFallback(error);
     return;
   }
   renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio || 1, 1.75), 2.25));
@@ -44,15 +51,11 @@ import * as THREE from 'three';
   }
   lightCard(18, 14, 0, 0, 8, .006);
   lightCard(18, 14, 0, 0, -8, .004);
-  lightCard(.28, 6, -3, 2.8, 4, 9);
-  lightCard(.23, 7, 3.6, .5, 2.5, 7);
-  lightCard(6, .27, 0, 4, .8, 11);
-  lightCard(4, .16, -1, -4, 3, .9);
-  lightCard(.48, 6, 3, 3, -4, 8);
-  lightCard(.36, 6, -3, 1, -3, 7);
-  lightCard(3.5, 5, -5, 2, 3, 2.5);
-  lightCard(3, 5, 4, -1, 4, 1.4);
-  lightCard(8, 2.5, 0, 5, 2, 1.6);
+  // One overhead source and a faint bounce keep the lower metal in shadow.
+  lightCard(4.2, .7, 0, 5, 2, 12);
+  lightCard(5, 2, 0, 6, -.5, 2);
+  lightCard(3, 4, -4, 1, 3, .24);
+  lightCard(3, 4, 4, 1, 3, .18);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const environment = pmrem.fromScene(environmentScene, .09);
   scene.environment = environment.texture;
@@ -67,15 +70,14 @@ import * as THREE from 'three';
     roughness: .33,
     clearcoat: .32,
     clearcoatRoughness: .25,
-    envMapIntensity: 1.05,
+    envMapIntensity: .6,
   });
   const meshUrl=window.DX_MESH_URL||'assets/logo-mesh.bin.gz';
   let packed;
   try{
     const response=await fetch(meshUrl);
-    if(!response.ok)throw new Error('Mesh download failed');
-    packed=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
-  }catch(error){canvas.hidden=true;fallback.hidden=false;console.error(error);revealSite();return;}
+    packed=await decodeMeshResponse(response);
+  }catch(error){showFallback(error);return;}
   const view=new DataView(packed),vertexCount=view.getUint32(0,true),indexCount=view.getUint32(4,true);
   const positions=new Float32Array(vertexCount*3),normals=new Float32Array(vertexCount*3),colors=new Uint8Array(vertexCount*3);
   for(let i=0,o=8;i<vertexCount;i++,o+=12)for(let j=0;j<3;j++){
@@ -94,8 +96,10 @@ import * as THREE from 'three';
   const triangleCount=indexCount/3,boundaryError=0;
   scene.add(emblem);
 
-  const key = new THREE.DirectionalLight(0xf1f4ff, .65);
-  key.position.set(-3.2, 5.5, 4.5);
+  const key = new THREE.SpotLight(0xf1f4ff, 55, 18, Math.PI / 4, .9, 2);
+  key.position.set(0, 5.5, 3.5);
+  key.target.position.set(0, -.6, 0);
+  scene.add(key.target);
   key.castShadow = true;
   key.shadow.mapSize.set(1024, 1024);
   key.shadow.camera.left = key.shadow.camera.bottom = -3.4;
@@ -104,10 +108,10 @@ import * as THREE from 'three';
   key.shadow.bias = -.0006;
   key.shadow.radius = 4;
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0xbec9da, .06);
+  const fill = new THREE.DirectionalLight(0xbec9da, .015);
   fill.position.set(4, -.5, 3);
   scene.add(fill);
-  const back = new THREE.DirectionalLight(0xd8e1ee, 1.3);
+  const back = new THREE.DirectionalLight(0xd8e1ee, .24);
   back.position.set(1, 3, -3);
   scene.add(back);
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.ShadowMaterial({ color: 0x000000, opacity: .6 }));
@@ -146,7 +150,13 @@ import * as THREE from 'three';
     emblem.rotation.y = -.22 + (reduced.matches ? 0 : elapsed * .16) + smoothX * .035;
     emblem.rotation.x = .035 + smoothY * .035;
     emblem.rotation.z = reduced.matches ? 0 : Math.sin(elapsed * .19) * .018;
-    renderer.render(scene, camera);
+    try {
+      renderer.render(scene, camera);
+    } catch (error) {
+      showFallback(error);
+      return;
+    }
+    if (fallback) fallback.hidden = true;
     // Keep the loader through GPU compilation and the first rendered frame.
     if(!revealed)requestAnimationFrame(revealSite);
     canvas.dataset.rotation = emblem.rotation.y.toFixed(3);
@@ -182,7 +192,9 @@ import * as THREE from 'three';
   canvas.dataset.sharpTips=String(116);
   canvas.dataset.renderer = 'three-webgl';
   canvas.dataset.startupMs=(performance.now()-started).toFixed(0);
-  fallback.hidden = true;
   resize();
   frame = requestAnimationFrame(render);
+  } catch (error) {
+    showFallback(error);
+  }
 })();
